@@ -1,15 +1,23 @@
 #!/usr/bin/env python
 
 from websockets.sync.client import connect
+import time
 
 
 def hello():
-    with connect("ws://localhost:8765") as websocket:
-        websocket.send("Hello world!")
+    url = "ws://localhost:8080/ws"
+    with connect(url) as websocket:
+        print("sent message hello, world")
+        # websocket.send("send message!")
+
+        time.sleep(3)
+        websocket.send("test")
+        time.sleep(4)
+        websocket.send('{"cmd":"lobby", "params":{"name":"kha"}}')
 
         while (True):
             message = websocket.recv()
-            print(f"Received: {message}")
+            print(f"recv:[{message}]")
 
 
 hello()

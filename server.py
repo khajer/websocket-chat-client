@@ -10,12 +10,12 @@ async def echo(client):
     clients.append(client)
     async for message in client:
         for c in clients:
-            await c.send(message)
+            await c.send("server: -> "+message)
         # await websocket.send(message)
 
 
 async def main():
-    async with serve(echo, "localhost", 8765):
+    async with serve(echo, "localhost", 8080):
         await asyncio.Future()  # run forever
 
 asyncio.run(main())
